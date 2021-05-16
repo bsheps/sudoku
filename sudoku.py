@@ -1,4 +1,4 @@
-gameBoard = [
+gameBoard1 = [
     [0,7,0,0,2,3,0,9,6],
     [0,0,2,0,0,0,0,7,0],
     [9,0,0,0,5,6,0,0,3],
@@ -8,6 +8,17 @@ gameBoard = [
     [8,0,0,1,9,0,0,0,5],
     [0,9,0,0,0,0,1,0,0],
     [2,1,0,4,3,0,0,6,0],
+]
+gameBoard2 = [
+    [0,0,8,0,0,1,0,3,0],
+    [7,0,1,0,0,0,8,9,0],
+    [2,6,5,0,0,3,0,0,7],
+    [0,1,4,0,7,0,0,0,8],
+    [0,0,2,8,0,9,7,0,0],
+    [8,0,0,0,4,0,6,5,0],
+    [1,0,0,3,0,0,2,8,5],
+    [0,2,6,0,0,0,3,0,4],
+    [0,8,0,4,0,0,1,0,0]
 ]
 line = " -----------------------"
 
@@ -99,21 +110,7 @@ def findEmptyCell(gameBoard):
         col = 0 # new row, reset col
         row += 1
 
-print(solve(gameBoard))
-# if gameBoard[row][col] == 0: #empty cell
-#                 for n in range(1,10):
-#                     gameBoard[row][col] = n
-#                     printBoard(gameBoard)
-#                     print('testing: ',row, col, n)
-#                     if validBoard(gameBoard): # only pursue valid game boards
-#                         if isFilled(gameBoard):
-#                             # valid + filled = winner
-#                             printBoard(gameBoard)
-#                             return True
-#                         else:
-#                             # valid but unfilled, find next unfilled spot
-#                             if solve(gameBoard, row, col+1):
-#                                 return True
-#                     gameBoard[row][col] = 0
-
-
+printBoard(gameBoard1)
+print(solve(gameBoard1))
+printBoard(gameBoard2)
+print(solve(gameBoard2))
