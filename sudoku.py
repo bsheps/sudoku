@@ -22,19 +22,42 @@ gameBoard2 = [
 ]
 line = " -----------------------"
 
-def printBoard(board):
-    for row in range(len(board)):
-        if row % 3 == 0:
-            print(line)
-        for col in range(len(board[row])):
-            if col % 3 == 0:
-                print("| ",end='')
-            if board[row][col] == 0:
-                print("  ", end='')
-            else:
-                print(board[row][col] ,end=' ')
-        print('|')
-    print(line, '\n')
+def solve(gameBoard):
+    cell = findEmptyCell(gameBoard)
+    if cell is not None:
+        r = cell[0]
+        c = cell[1]
+        for n in range(1,10):
+            gameBoard[r][c] = n
+            if isValidBoard(gameBoard):
+                if isSolution(gameBoard):
+                    printBoard(gameBoard)
+                else:
+                    solve(gameBoard)
+            gameBoard[r][c] = 0
+
+def findEmptyCell(gameBoard):
+    col = 0
+    row = 0
+    while row < 9:
+        while col < 9:
+            if gameBoard[row][col] == 0: #empty cell
+                return [row,col]
+            col += 1
+        col = 0 # new row, reset col
+        row += 1
+
+def isSolution(gameBoard):
+    return isValidBoard(gameBoard) and isFilled(gameBoard)
+
+def isValidBoard(gameBoard):
+    for row in gameBoard:
+        if(not validRow(row)):
+            return False
+    for col in range(0,len(gameBoard[0])):
+        if not validCol(gameBoard, col):
+            return False
+    return allSquaresValid(gameBoard)
 
 def validRow(row):
     values = []
@@ -51,21 +74,7 @@ def validCol(board, col):
     
     return len(values) == len(set(values))
 
-def validSquare(board, x1, x2, y1, y2):
-    values=[]
-    for row in range(x1,x2+1):
-        for col in range(y1, y2+1):
-            if board[row][col] > 0:
-                values.append(board[row][col])
-    return len(values) == len(set(values))
-
-def isValidBoard(gameBoard):
-    for row in gameBoard:
-        if(not validRow(row)):
-            return False
-    for col in range(0,len(gameBoard[0])):
-        if not validCol(gameBoard, col):
-            return False
+def allSquaresValid(gameBoard):
     return (validSquare(gameBoard,0,2,0,2) and 
             validSquare(gameBoard,3,5,0,2) and 
             validSquare(gameBoard,6,8,0,2) and
@@ -77,6 +86,14 @@ def isValidBoard(gameBoard):
             validSquare(gameBoard,6,8,6,8)
            )
 
+def validSquare(board, x1, x2, y1, y2):
+    values=[]
+    for row in range(x1,x2+1):
+        for col in range(y1, y2+1):
+            if board[row][col] > 0:
+                values.append(board[row][col])
+    return len(values) == len(set(values))
+
 def isFilled(gameBoard):
     for row in gameBoard:
         for cell in row:
@@ -84,31 +101,19 @@ def isFilled(gameBoard):
                 return False
     return True
 
-
-def solve(gameBoard):
-    cell = findEmptyCell(gameBoard)
-    if cell is not None:
-        r = cell[0]
-        c = cell[1]
-        for n in range(1,10):
-            gameBoard[r][c] = n
-            if isValidBoard(gameBoard):
-                if isFilled(gameBoard):
-                    printBoard(gameBoard)
-                solve(gameBoard)
-            gameBoard[r][c] = 0
-
-
-def findEmptyCell(gameBoard):
-    col = 0
-    row = 0
-    while row < 9:
-        while col < 9:
-            if gameBoard[row][col] == 0: #empty cell
-                return [row,col]
-            col += 1
-        col = 0 # new row, reset col
-        row += 1
+def printBoard(board):
+    for row in range(len(board)):
+        if row % 3 == 0:
+            print(line)
+        for col in range(len(board[row])):
+            if col % 3 == 0:
+                print("| ",end='')
+            if board[row][col] == 0:
+                print("  ", end='')
+            else:
+                print(board[row][col] ,end=' ')
+        print('|')
+    print(line, '\n')
 
 printBoard(gameBoard1)
 print(solve(gameBoard1))
