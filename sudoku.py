@@ -1,4 +1,4 @@
-gameBoard1 = [
+gameBoard1 = [ # easy
     [0,7,0,0,2,3,0,9,6],
     [0,0,2,0,0,0,0,7,0],
     [9,0,0,0,5,6,0,0,3],
@@ -9,7 +9,7 @@ gameBoard1 = [
     [0,9,0,0,0,0,1,0,0],
     [2,1,0,4,3,0,0,6,0],
 ]
-gameBoard2 = [
+gameBoard2 = [ # easy
     [0,0,8,0,0,1,0,3,0],
     [7,0,1,0,0,0,8,9,0],
     [2,6,5,0,0,3,0,0,7],
@@ -20,8 +20,20 @@ gameBoard2 = [
     [0,2,6,0,0,0,3,0,4],
     [0,8,0,4,0,0,1,0,0]
 ]
+gameBoard3 = [ # expert
+    [0,0,0,3,0,0,5,4,6],
+    [0,0,0,0,4,0,0,0,0],
+    [8,0,3,5,0,1,0,0,0],
+    [0,5,0,0,0,4,8,0,0],
+    [3,0,0,0,0,0,0,0,9],
+    [0,0,9,2,0,0,0,6,0],
+    [0,0,0,6,0,3,7,0,8],
+    [0,0,0,0,9,0,0,0,0],
+    [6,7,1,0,0,2,0,0,0]
+]
 line = " -----------------------"
 
+#Solve by recursive backtracking
 def solve(gameBoard):
     cell = findEmptyCell(gameBoard)
     if cell is not None:
@@ -119,3 +131,5 @@ printBoard(gameBoard1)
 print(solve(gameBoard1))
 printBoard(gameBoard2)
 print(solve(gameBoard2))
+printBoard(gameBoard3)
+print(solve(gameBoard3))
